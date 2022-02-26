@@ -1,0 +1,5 @@
+./venv
+.dbdata
+
+.env
+./clientes/fixtures/dados.json
