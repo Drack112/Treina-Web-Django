@@ -1,8 +1,11 @@
 from rest_framework import status
 from rest_framework.pagination import LimitOffsetPagination, PageNumberPagination
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from ..services import vaga_service
 from ..serializers import vaga_serializer
@@ -13,6 +16,7 @@ from ..pagination import PaginacaoCustomizada
 class VagaList(APIView):
     permission_classes = [IsAuthenticated]
 
+    @method_decorator(cache_page(60 * 60))
     def get(self, request, format=None):
         paginacao = PaginacaoCustomizada()
         vagas = vaga_service.listar_vagas()
@@ -50,6 +54,9 @@ class VagaList(APIView):
 
 
 class VagaDetalhes(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @method_decorator(cache_page(60 * 60))
     def get(self, request, id, format=None):
         vaga = vaga_service.listar_vaga_id(id)
         serializer = vaga_serializer.VagaSerializer(vaga)
@@ -80,6 +87,8 @@ class VagaDetalhes(APIView):
             vaga_service.editar_vaga(vaga_antiga, vaga_nova)
             return Response(serializer.data, status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    permission_classes = [IsAuthenticated]
 
     def delete(self, request, id, format=None):
         vaga = vaga_service.listar_vaga_id(id)

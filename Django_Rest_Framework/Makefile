@@ -1,11 +1,14 @@
+format:
+	black ./*.py && black ./*/*.py && black ./*/*/*.py
+
 migrations:
 	python manage.py makemigrations
 
 migrate:
 	python manage.py migrate
 
-clear_db:
-	python manage.py flush
+mixer:
+	python manage.py shell < api/mixer/mixer.py
 
 dumpdata:
 	python manage.py dumpdata --format json > dados.json
@@ -13,14 +16,11 @@ dumpdata:
 loaddata:
 	python manage.py loaddata dados.json
 
-runserver:
-	python manage.py runserver	
-
-format:
-	black ./*.py && black ./*/*.py && black ./*/*/*.py
-
-mixer_cliente:
-	python manage.py shell < clientes/mixers/clientes_mixer.py	
+clear_db:
+	python manage.py flush
 
 create_cache:
 	python manage.py createcachetable
+
+runserver:
+	python manage.py runserver	

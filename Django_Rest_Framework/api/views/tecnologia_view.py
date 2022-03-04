@@ -1,6 +1,10 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.permissions import IsAuthenticated, AllowAny
+
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 
 from ..services import tecnologia_service
 from ..serializers import tecnologia_serializer
@@ -8,6 +12,9 @@ from ..entidades import tecnologia
 
 
 class TecnologiaList(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @method_decorator(cache_page(10 * 10))
     def get(self, request, format=None):
         tecnologias = tecnologia_service.listar_tecnologias()
         serializer = tecnologia_serializer.TecnologiaSerializer(tecnologias, many=True)
@@ -18,12 +25,15 @@ class TecnologiaList(APIView):
         if serializer.is_valid():
             nome = serializer.validated_data["nome"]
             tecnologia_nova = tecnologia.Tecnologia(nome=nome)
-            tecnologia_bd = tecnologia_service.cadastrar_tecnologia(tecnologia_nova)
+            tecnologia_service.cadastrar_tecnologia(tecnologia_nova)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 class TecnologiaDetalhes(APIView):
+    permission_classes = [IsAuthenticated]
+
+    @method_decorator(cache_page(60 * 60))
     def get(self, request, id, format=None):
         tecnologia = tecnologia_service.listar_tecnologia_id(id)
         serializer = tecnologia_serializer.TecnologiaSerializer(tecnologia)

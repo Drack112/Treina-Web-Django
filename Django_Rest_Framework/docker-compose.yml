@@ -44,12 +44,8 @@ services:
 
   redis-admin:
     image: erikdubbelboer/phpredisadmin
-    container-name: redis-admin    
     ports:
       - "6378:80"
-    enviroments:
-      ADMIN_USER: ${PG_ADMIN_EMAIL}
-      ADMIN_PASS: ${PG_PASSWORD}
 
   web:
     build: .
