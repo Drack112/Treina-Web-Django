@@ -24,5 +24,3 @@ mixer_cliente:
 
 create_cache:
 	python manage.py createcachetable
-
-	
