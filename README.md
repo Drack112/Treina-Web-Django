@@ -1,4 +1,4 @@
-# 🐍 Cadastro De Cliente Django
+# 🐍 TreinaWeb Django
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Drack112/Treina-Web-Django?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/Drack112/Treina-Web-Django?style=for-the-badge)
