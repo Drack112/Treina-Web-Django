@@ -1,4 +1,4 @@
-# Django Rest Framework
+# 🐍 Django Rest Framework
 
 ![GitHub repo size](https://img.shields.io/github/repo-size/Drack112/Treina-Web-Django?style=for-the-badge)
 ![GitHub language count](https://img.shields.io/github/languages/count/Drack112/Treina-Web-Django?style=for-the-badge)
@@ -8,7 +8,7 @@
 
 > Código que foi executado e reproduzido durante o curso de Django da Treina Web
 
-### Funções e adeptos
+### ⭐ Funções e adeptos
 
 - [x] Crud de Vagas de Emprego com usuários
 - [x] Uma API RESTFUL
